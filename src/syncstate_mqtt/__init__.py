@@ -31,5 +31,5 @@ class SyncstateConnectionManager:
 
     def attach(self, dictionary:dict) -> None:
         self._dict = dictionary
-        self._mqttc.connect(self.host)
+        self._mqttc.connect(self.host, port=self.port)
         self._mqttc.loop_start()
