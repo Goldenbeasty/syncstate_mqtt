@@ -20,7 +20,10 @@ class SyncstateConnectionManager:
             client.subscribe(self.base_topic + key)
 
     def _on_message(self, client: mqtt.Client, data, msg:mqtt.MQTTMessage) -> None:
-        key = msg.topic.lstrip(self.base_topic)
+        if msg.topic.startswith(self.base_topic):
+            key = msg.topic[len(self.base_topic):]
+        else:
+            key = msg.topic
 
         subject_type = type(self._dict[key])
         try:
